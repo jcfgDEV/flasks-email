@@ -11,15 +11,23 @@ export default function Home() {
 
   const HandleSubmit = async (e) => {
     e.preventDefault();
-
-    const datos = {
-      "Nombre": Nombre,
-      "Asunto": Asunto,
-      "Email": Email,
-      "Message": Message,
-    }
-
-    console.log(datos);
+    const Res = await fetch('https://mail-flask-six.vercel.app//SendEmail', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        Nombre,
+        Asunto,
+        Email,
+        Message
+      })
+    })
+    await Res.json();
+    setNombre('');
+    setAsunto('');
+    setEmail('');
+    setMesage('');
   }
 
   return (
