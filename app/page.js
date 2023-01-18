@@ -11,7 +11,7 @@ export default function Home() {
 
   const HandleSubmit = async (e) => {
     e.preventDefault();
-    const Res = await fetch('https://flask-mails-endpoint.vercel.app//SendEmail', {
+    const Res = await fetch('https://flask-mails-endpoint.vercel.app/SendEmail', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
