@@ -1,5 +1,7 @@
 'use client'
 import {useState} from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Home() {
 
@@ -11,7 +13,7 @@ export default function Home() {
 
   const HandleSubmit = async (e) => {
     e.preventDefault();
-    const Res = await fetch('https://flask-mails-endpoint.vercel.app/SendEmail', {
+    const res = await fetch('https://flask-mails-endpoint.vercel.app/SendEmail', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -23,7 +25,19 @@ export default function Home() {
         Message
       })
     })
-    await Res.json();
+    const response = await res.json()
+    const Notify = () => {
+      toast.success(response.Message, {
+        position: "bottom-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    }
+    Notify();
     setNombre('');
     setAsunto('');
     setEmail('');
@@ -32,6 +46,7 @@ export default function Home() {
 
   return (
     <>
+    <ToastContainer theme='colored'/>
       <div className="flex flex-wrap justify-center items-center p-3">
         <form onSubmit={HandleSubmit}>
           <input 
